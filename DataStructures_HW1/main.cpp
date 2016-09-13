@@ -17,7 +17,7 @@ int numberOfEntries = 0;
 void printMenu();
 void printEntries();
 void handleUserInput(char, int);
-int insertRecord();
+int insertRecord(string, double, double);
 void showContinueScreen();
 void searchByName(string);
 
@@ -34,9 +34,7 @@ entry *database;
 
 void main()
 {
-
 	printMenu();
-
 }
 
 void printMenu() {
@@ -138,49 +136,56 @@ int insertRecord(string name, double x, double y) {
 
 int deleteRecord(string name, double x, double y)
 {
+	int indexToDelete = -1;
 	try
 	{
-		numberOfEntries += 1;
-
-		if (numberOfEntries == 1)	//first entry needs to create initial database array and add first item
+		//figure out which index the desired entry is located at
+		for (int i = 0; i < numberOfEntries; i++)
 		{
-			initialDatabase = new entry[numberOfEntries];
-			initialDatabase[0] = { name, x, y };
-			//in this case we make database the same as initialDatabase
-			database = new entry[numberOfEntries];
-			database[0] = { name, x, y };
-			return 0;
+			if (database[i].name == name || (database[i].xCoord == x && database[i].yCoord == y))
+			{
+				indexToDelete = i;
+			}
+			else 
+			{
+				return 1; //entry not found
+			}
 		}
-		else						//otherwise we need to create a new array AND copy the old array contents over, then add new entry
+
+		//this will delete the desired entry by ovewriting its value with the value of the item directly to the right
+		//it will then shift all of the other elements after this to the left
+		//this leaves us with a double entry at our last entry
+		//so we need to delete the last item
+		for (int i = indexToDelete; i < numberOfEntries - indexToDelete; i++)
 		{
-			if (numberOfEntries > 1)
-			{
-				//delete previous database array
-				delete[]database;
-			}
-
-			database = new entry[numberOfEntries];
-
-			for (int i = 0; i < numberOfEntries - 1; i++)
-			{
-				//copy items
-				database[i] = initialDatabase[i];
-			}
-
-			//add new item
-			database[numberOfEntries - 1] = { name, x, y };
-
-			//delete old array after it is copied over
-			delete[]initialDatabase;
-			//recreate "old" array with one larger size
-			initialDatabase = new entry[numberOfEntries];
-			//now repopulate this "old" array with the new data, so we can use it when we insert next time to copy data to new database
-			for (int i = 0; i < numberOfEntries; i++)
-			{
-				initialDatabase[i] = database[i];
-			}
-			return 0;
+			database[i] = database[i + 1];
 		}
+
+		//decrement the number of entries
+		numberOfEntries -= 1;
+
+		//delete and recreate the 'initialDatabase' as the correct size so we can use it as a temp database
+		//in order to delete and recreate 'database' as the right size with the right items
+		delete[]initialDatabase;
+		initialDatabase = new entry[numberOfEntries];
+
+
+		//copy the database (minus the last entry) to our 'initialDatabase'
+		for (int i = 0; i < numberOfEntries; i++)
+		{
+			initialDatabase[i] = database[i];
+		}
+		
+		//now we delete the too big database array and recreate it as the right size
+		delete[]database;
+		database = new entry[numberOfEntries];
+
+		//copy from 'initialDatabase' to 'database'
+		for (int i = 0; i < numberOfEntries; i++)
+		{
+			database[i] = initialDatabase[i];
+		}
+		return 0;
 	}
 	catch (exception& e)
 	{
@@ -208,6 +213,7 @@ void handleUserInput(char implement, int operate)
 	string enteredName;
 	double enteredX;
 	double enteredY;
+	double enteredSearchDistance;
 	int returnValue;
 
 	switch (operate) 
@@ -238,6 +244,8 @@ void handleUserInput(char implement, int operate)
 		case 3:	//Search for a record by coordinate
 			cout << "Enter X Coordinate of the city to be searched: ";
 			cin >> enteredX;
+			cout << "Enter Y Coordinate of the city to be searched: ";
+			cin >> enteredY;
 			searchByCoordinate(enteredX, enteredY);
 			break;
 
@@ -245,6 +253,21 @@ void handleUserInput(char implement, int operate)
 			cout << "Enter name of the city to be deleted: ";
 			cin >> enteredName;
 			deleteByName(enteredName);
+			break;
+		
+		case 5: //Delete a record by coordinate
+			cout << "Enter X Coordinate of the city to be deleted: ";
+			cin >> enteredX;
+			cout << "Enter Y Coordinate of the city to be deleted: ";
+			cin >> enteredY;
+			deleteByRecord(enteredX, enteredY);
+			break;
+
+		case 6:	//Print within a certain distance of entry
+			cout << "Enter name of city you would like to search around: ";
+			cin >> enteredName;
+			cout << "How far would you like to search?: ";
+			cin >> enteredSearchDistance;
 			break;
 
 		case 7: //print ALL records
@@ -277,12 +300,48 @@ void searchByName(string name)
 
 void deleteByName(string name)
 {
-	bool found = false;
+	int result = -1;
+
 	for (int i = 0; i < numberOfEntries; i++)
 	{
 		if (name == database[i].name)
 		{
 			//delete the record
+			result = deleteRecord(database[i].name, 0, 0);
+			if (result == 0)
+				cout << "Record deleted successfully! \n";
+			else if (result == 1)
+				cout << "This entry doesn't exist! \n";
+			else if (result == 2)
+				cout << "Unknown error occured. You're guess is as good as mine... \n";
+		}
+		else
+		{
+			cout << "This entry doesn't exist! \n";
+		}
+	}
+}
+
+void deleteByRecord(double x, double y)
+{
+	int result = -1;
+
+	for (int i = 0; i < numberOfEntries; i++)
+	{
+		if (x == database[i].xCoord && y == database[i].xCoord)
+		{
+			//delete the record
+			result = deleteRecord("", database[i].xCoord, database[i].yCoord);
+			if (result == 0)
+				cout << "Record deleted successfully! \n";
+			else if (result == 1)
+				cout << "This entry doesn't exist! \n";
+			else if (result == 2)
+				cout << "Unknown error occured. You're guess is as good as mine... \n";
+		}
+		else
+		{
+			cout << "This entry doesn't exist! \n";
 		}
 	}
 }
@@ -303,6 +362,11 @@ void searchByCoordinate(double x, double y)
 		}
 		showContinueScreen();
 	}
+}
+
+void searchWithinDistance(string name, double x, double y)
+{
+
 }
 
 void showContinueScreen()
