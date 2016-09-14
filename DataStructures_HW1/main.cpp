@@ -16,10 +16,16 @@ int numberOfEntries = 0;
 //function prototypes
 void printMenu();
 void printEntries();
-void handleUserInput(char, int);
 int insertRecord(string, double, double);
-void showContinueScreen();
+int deleteRecord(string, double, double);
 void searchByName(string);
+void deleteByName(string);
+void deleteByCoordinate(double, double);
+void searchByCoordinate(double, double);
+void searchWithinDistance(string, double, double);
+void handleUserInput(char, int);
+void showContinueScreen();
+
 
 struct entry {
 public:
@@ -82,6 +88,18 @@ void printMenu() {
 	handleUserInput(implementation, operation);
 }
 
+void printEntries()
+{
+	for (int i = 0; i < numberOfEntries; i++)
+	{
+		string name = database[i].name;
+		double x = database[i].xCoord;
+		double y = database[i].yCoord;
+
+		cout << "Name: " << name << ", X Coordinate: " << x << ", Y Coordinate: " << y << "\n";
+	}
+}
+
 int insertRecord(string name, double x, double y) {
 	try
 	{
@@ -136,6 +154,7 @@ int insertRecord(string name, double x, double y) {
 
 int deleteRecord(string name, double x, double y)
 {
+	bool found = false;
 	int indexToDelete = -1;
 	try
 	{
@@ -145,11 +164,13 @@ int deleteRecord(string name, double x, double y)
 			if (database[i].name == name || (database[i].xCoord == x && database[i].yCoord == y))
 			{
 				indexToDelete = i;
+				found = true;
 			}
-			else 
-			{
-				return 1; //entry not found
-			}
+		}
+
+		if (!found)
+		{
+			return 1; //not found
 		}
 
 		//this will delete the desired entry by ovewriting its value with the value of the item directly to the right
@@ -193,18 +214,6 @@ int deleteRecord(string name, double x, double y)
 	}
 
 
-}
-
-void printEntries()
-{
-	for (int i = 0; i < numberOfEntries; i++)
-	{
-		string name = database[i].name;
-		double x = database[i].xCoord;
-		double y = database[i].yCoord;
-
-		cout << "Name: " << name << ", X Coordinate: " << x << ", Y Coordinate: " << y << "\n";
-	}	
 }
 
 void handleUserInput(char implement, int operate)
@@ -260,7 +269,7 @@ void handleUserInput(char implement, int operate)
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be deleted: ";
 			cin >> enteredY;
-			deleteByRecord(enteredX, enteredY);
+			deleteByCoordinate(enteredX, enteredY);
 			break;
 
 		case 6:	//Print within a certain distance of entry
@@ -315,14 +324,10 @@ void deleteByName(string name)
 			else if (result == 2)
 				cout << "Unknown error occured. You're guess is as good as mine... \n";
 		}
-		else
-		{
-			cout << "This entry doesn't exist! \n";
-		}
 	}
 }
 
-void deleteByRecord(double x, double y)
+void deleteByCoordinate(double x, double y)
 {
 	int result = -1;
 
