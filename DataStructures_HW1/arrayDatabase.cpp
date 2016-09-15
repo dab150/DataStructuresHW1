@@ -8,10 +8,10 @@ Functions to manipulate an array based database
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include "arrayDatabase.h"
 #include "common.h"
 
 using namespace std;
-
 
 void array_printEntries()
 {
@@ -148,7 +148,7 @@ void array_searchByName(string name)
 	{
 		if (name == database[i].name)
 		{
-			cout << database[i].name << ", (" << database[i].xCoord << ", " << database[i].yCoord << ") \n";
+			cout << "\n" << database[i].name << ", (" << database[i].xCoord << ", " << database[i].yCoord << ") \n";
 			found = true;
 		}
 	}
@@ -210,7 +210,7 @@ void array_searchByCoordinate(double x, double y)
 	{
 		if (x == database[i].xCoord && y == database[i].yCoord)
 		{
-			cout << database[i].name << ", (" << database[i].xCoord << ", " << database[i].yCoord << ") \n";
+			cout << "\n" << database[i].name << ", (" << database[i].xCoord << ", " << database[i].yCoord << ") \n";
 			found = true;
 		}
 		if (found == false)

@@ -1,5 +1,4 @@
-#ifndef common
-#define common
+#pragma once
 
 /*	Data Structures Homework #1
 Daniel Barber-Cironi
@@ -15,15 +14,14 @@ Contains variables needed throughout the various files in this program
 using namespace std;
 
 //global variables
-extern int numberOfEntries;
+int numberOfEntries;
 
 //function prototypes
 void printMenu();
 void handleUserInput(char, int);
 void showContinueScreen();
 
-
-extern struct entry {
+struct entry {
 public:
 	string name;
 	double xCoord;
@@ -31,7 +29,5 @@ public:
 };
 
 //
-extern entry *initialDatabase;
-extern entry *database;
-
-#endif
+entry *initialDatabase;
+entry *database;

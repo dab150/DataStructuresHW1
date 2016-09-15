@@ -8,23 +8,13 @@
 #include <iostream>
 #include <string>
 #include "arrayDatabase.h"
-#include "common.h"
 
 using namespace std;
 
-int numberOfEntries = 0;
-
-struct entry {
-public:
-	string name = "";
-	double xCoord = 0;
-	double yCoord = 0;
-};
-
-
-//arrays
-entry *initialDatabase;
-entry *database;
+//function prototypes
+void printMenu();
+void handleUserInput(char, int);
+void showContinueScreen();
 
 void main()
 {

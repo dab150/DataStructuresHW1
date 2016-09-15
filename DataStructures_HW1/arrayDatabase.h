@@ -1,5 +1,4 @@
-#ifndef arrayDatabase
-#define arrayDatabase
+#pragma once
 
 /*	Data Structures Homework #1
 Daniel Barber-Cironi
@@ -8,16 +7,15 @@ arrayDatabase.h
 Header file with functions to manipulate an array based database
 */
 
-#include "arrayDatabase.cpp"
+using namespace std;
 
 //function prototypes
 void array_printEntries();
-int array_insertRecord(string, double, double);
-int array_deleteRecord(string, double, double);
-void arrray_searchByName(string);
-void array_deleteByName(string);
-void array_deleteByCoordinate(double, double);
-void array_searchByCoordinate(double, double);
-void array_searchWithinDistance(string, double, double);
+int array_insertRecord(string name, double x, double y);
+int array_deleteRecord(string name, double x, double y);
+void array_searchByName(string name);
+void array_deleteByName(string name);
+void array_deleteByCoordinate(double x, double y);
+void array_searchByCoordinate(double x, double y);
+void array_searchWithinDistance(string name, double x, double y);
 
-#endif
