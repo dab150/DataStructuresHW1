@@ -1,3 +1,6 @@
+#ifndef common
+#define common
+
 /*	Data Structures Homework #1
 Daniel Barber-Cironi
 September 11, 2016
@@ -12,20 +15,23 @@ Contains variables needed throughout the various files in this program
 using namespace std;
 
 //global variables
-extern int numberOfEntries = 0;
+extern int numberOfEntries;
 
 //function prototypes
 void printMenu();
 void handleUserInput(char, int);
 void showContinueScreen();
 
-struct entry {
+
+extern struct entry {
 public:
 	string name;
 	double xCoord;
 	double yCoord;
 };
 
-//arrays
-entry *initialDatabase;
-entry *database;
+//
+extern entry *initialDatabase;
+extern entry *database;
+
+#endif

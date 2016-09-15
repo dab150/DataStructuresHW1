@@ -12,6 +12,20 @@
 
 using namespace std;
 
+int numberOfEntries = 0;
+
+struct entry {
+public:
+	string name = "";
+	double xCoord = 0;
+	double yCoord = 0;
+};
+
+
+//arrays
+entry *initialDatabase;
+entry *database;
+
 void main()
 {
 	printMenu();

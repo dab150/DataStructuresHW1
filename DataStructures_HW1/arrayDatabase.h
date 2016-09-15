@@ -1,7 +1,10 @@
+#ifndef arrayDatabase
+#define arrayDatabase
+
 /*	Data Structures Homework #1
 Daniel Barber-Cironi
 September 11, 2016
-arrayDatabase.cpp
+arrayDatabase.h
 Header file with functions to manipulate an array based database
 */
 
@@ -16,3 +19,5 @@ void array_deleteByName(string);
 void array_deleteByCoordinate(double, double);
 void array_searchByCoordinate(double, double);
 void array_searchWithinDistance(string, double, double);
+
+#endif
