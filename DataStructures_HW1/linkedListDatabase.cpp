@@ -80,12 +80,12 @@ void linkedList_printEntries()
 	temp = root;
 	if (temp->name != "")
 	{
-		cout << "Name: " << root->name << " X: " << root->xCoord << ", Y: " << root->xCoord << "\n";
+		cout << "Name: " << root->name << " X: " << root->xCoord << ", Y: " << root->yCoord << "\n";
 	}
 	while (temp->next != NULL)
 	{
 		temp = temp->next;	
-		cout << "Name: " << temp->name << " X: " << temp->xCoord << ", Y: " << temp->xCoord << "\n";
+		cout << "Name: " << temp->name << " X: " << temp->xCoord << ", Y: " << temp->yCoord << "\n";
 	}
 }
 
@@ -143,7 +143,26 @@ int linkedList_deleteRecord(string name, double x, double y)
 {
 	try
 	{
+		node *temp = root;
+		node *previous = root;
+		node *next = root;
 
+		while (temp != NULL)
+		{
+			if (temp->name == name || (temp->xCoord == x && temp->yCoord == y))
+			{
+				//delete node
+				delete temp;
+				//direct pointer of the item just before deleted node to the node just after the delete node
+				previous->next = next;
+				return 0;
+			}
+			previous = temp;
+			temp = previous->next;
+			next = temp->next;
+		}
+
+		return 1;
 	}
 	catch (exception& e)
 	{
@@ -155,11 +174,28 @@ int linkedList_deleteRecord(string name, double x, double y)
 
 void linkedList_searchByName(string name)
 {
+	node *temp = root;
+	bool found = false;
+
+	while (temp != NULL)
+	{
+		if (temp->name == name)
+		{
+			cout << "Name: " << temp->name << " X: " << temp->xCoord << ", Y: " << temp->yCoord << "\n";
+			found = true;
+		}
+		temp = temp->next;
+	}
+
+	if (found == false)
+	{
+		cout << "No such record exists in the existing data set. \n";
+	}
 }
 
 void linkedList_deleteByName(string name)
 {
-
+	
 }
 
 void linkedList_deleteByCoordinate(double x, double y)
@@ -169,7 +205,23 @@ void linkedList_deleteByCoordinate(double x, double y)
 
 void linkedList_searchByCoordinate(double x, double y)
 {
-	
+	node *temp = root;
+	bool found = false;
+
+	while (temp != NULL)
+	{
+		if (temp->xCoord == x && temp->yCoord)
+		{
+			cout << "Name: " << temp->name << " X: " << temp->xCoord << ", Y: " << temp->yCoord << "\n";
+			found = true;
+		}
+		temp = temp->next;
+	}
+
+	if (found == false)
+	{
+		cout << "No such record exists in the existing data set. \n";
+	}
 }
 
 void linkedList_searchWithinDistance(string name, double x, double y)

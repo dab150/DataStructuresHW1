@@ -27,7 +27,7 @@ void printMenu() {
 	int operation;
 
 	cout << "\n";
-	cout << "**************************************";
+	cout << "*********************************************************";
 	cout << " \n \n \n";
 	cout << "Implementation Options: \n";
 	cout << "	A.Use an array-based list implementation \n";
@@ -178,7 +178,7 @@ void handleUserInput(char implement, int operate)
 		case 4:	//Delete a record by name
 			cout << "Enter name of the city to be deleted: ";
 			cin >> enteredName;
-			linkedList_deleteByName(enteredName);
+			linkedList_deleteRecord(enteredName, 0, 0);
 			break;
 
 		case 5: //Delete a record by coordinate
@@ -186,7 +186,7 @@ void handleUserInput(char implement, int operate)
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be deleted: ";
 			cin >> enteredY;
-			linkedList_deleteByCoordinate(enteredX, enteredY);
+			linkedList_deleteRecord("",enteredX, enteredY);
 			break;
 
 		case 6:	//Print within a certain distance of entry
