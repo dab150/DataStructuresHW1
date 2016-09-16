@@ -13,36 +13,7 @@ Contains variables needed throughout the various files in this program
 
 using namespace std;
 
-//global variables
-int numberOfArrayEntries;
-int numberOfLLEntries;
-
 //function prototypes
 void printMenu();
 void handleUserInput(char, int);
 void showContinueScreen();
-
-//--------------Array Stuff--------------//
-//entry structure
-struct entry {
-public:
-	string name;
-	double xCoord;
-	double yCoord;
-};
-
-//entry object initializations
-entry *initialDatabase;
-entry *database;
-//---------------------------------------//
-
-//------------Linked List Stuff----------//
-//node structure
-struct node {
-	string name;
-	double xCoord;
-	double yCoord;
-	node *next;
-};
-
-//--------------------------------------//

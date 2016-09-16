@@ -18,4 +18,3 @@ void linkedList_deleteByName(string name);
 void linkedList_deleteByCoordinate(double x, double y);
 void linkedList_searchByCoordinate(double x, double y);
 void linkedList_searchWithinDistance(string name, double x, double y);
-

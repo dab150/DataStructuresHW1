@@ -140,7 +140,7 @@ void handleUserInput(char implement, int operate)
 		}
 	}
 
-	/*if (implement == 'B' || implement == 'b')	//implement using linked list
+	if (implement == 'B' || implement == 'b')	//implement using linked list
 	{
 		switch (operate)
 		{
@@ -152,7 +152,7 @@ void handleUserInput(char implement, int operate)
 			cout << "Enter y coordinate of the city: ";
 			cin >> enteredY;
 
-			returnValue = insertRecord(enteredName, enteredX, enteredY);
+			returnValue = linkedList_insertRecord(enteredName, enteredX, enteredY);
 			if (returnValue == 0)
 				cout << "Record inserted successfully! \n";
 			else if (returnValue == 1)
@@ -164,7 +164,7 @@ void handleUserInput(char implement, int operate)
 		case 2: //Search for a record by name
 			cout << "Enter name of the city to be searched: ";
 			cin >> enteredName;
-			searchByName(enteredName);
+			linkedList_searchByName(enteredName);
 			break;
 
 		case 3:	//Search for a record by coordinate
@@ -172,13 +172,13 @@ void handleUserInput(char implement, int operate)
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be searched: ";
 			cin >> enteredY;
-			searchByCoordinate(enteredX, enteredY);
+			linkedList_searchByCoordinate(enteredX, enteredY);
 			break;
 
 		case 4:	//Delete a record by name
 			cout << "Enter name of the city to be deleted: ";
 			cin >> enteredName;
-			deleteByName(enteredName);
+			linkedList_deleteByName(enteredName);
 			break;
 
 		case 5: //Delete a record by coordinate
@@ -186,7 +186,7 @@ void handleUserInput(char implement, int operate)
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be deleted: ";
 			cin >> enteredY;
-			deleteByCoordinate(enteredX, enteredY);
+			linkedList_deleteByCoordinate(enteredX, enteredY);
 			break;
 
 		case 6:	//Print within a certain distance of entry
@@ -197,12 +197,12 @@ void handleUserInput(char implement, int operate)
 			break;
 
 		case 7: //print ALL records
-			printEntries();
+			linkedList_printEntries();
 
 		default:
 			break;
 		}
-	}*/
+	}
 
 	showContinueScreen();
 }

@@ -13,6 +13,21 @@ Functions to manipulate an array based database
 
 using namespace std;
 
+int numberOfArrayEntries;
+
+//entry structure
+struct entry {
+public:
+	string name;
+	double xCoord;
+	double yCoord;
+};
+
+//entry object initializations
+entry *initialDatabase;
+entry *database;
+
+
 void array_printEntries()
 {
 	if (numberOfArrayEntries == 0)
