@@ -32,7 +32,7 @@ void array_printEntries()
 {
 	if (numberOfArrayEntries == 0)
 	{
-		cout << "\n No entries to display! \n";
+		cout << "No entries to display! \n";
 	}
 
 	else

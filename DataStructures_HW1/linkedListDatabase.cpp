@@ -78,14 +78,21 @@ node *head;
 void linkedList_printEntries()
 {
 	temp = root;
-	if (temp->name != "")
+	if (temp != NULL) //make sure we dont have an empty list first
 	{
-		cout << "Name: " << root->name << " X: " << root->xCoord << ", Y: " << root->yCoord << "\n";
+		if (temp->name != "")
+		{
+			cout << "Name: " << root->name << " X: " << root->xCoord << ", Y: " << root->yCoord << "\n";
+		}
+		while (temp->next != NULL)
+		{
+			temp = temp->next;
+			cout << "Name: " << temp->name << " X: " << temp->xCoord << ", Y: " << temp->yCoord << "\n";
+		}
 	}
-	while (temp->next != NULL)
+	else
 	{
-		temp = temp->next;	
-		cout << "Name: " << temp->name << " X: " << temp->xCoord << ", Y: " << temp->yCoord << "\n";
+		cout << "No entries to display! \n";
 	}
 }
 
@@ -144,8 +151,8 @@ int linkedList_deleteRecord(string name, double x, double y)
 	try
 	{
 		node *temp = root;
-		node *previous = root;
-		node *next = root;
+		node *previous = NULL;
+		node *next = root->next;
 
 		while (temp != NULL)
 		{
@@ -154,7 +161,12 @@ int linkedList_deleteRecord(string name, double x, double y)
 				//delete node
 				delete temp;
 				//direct pointer of the item just before deleted node to the node just after the delete node
-				previous->next = next;
+				if (previous != NULL) //make sure there is a previous and we aren't deleting the first node
+					previous->next = next;
+				else if (next != NULL)
+					root = next;	//if we are deleting the first node, set next as root
+				else
+					root = NULL;	//we are deleting the only node so root = NULL
 				return 0;
 			}
 			previous = temp;
@@ -193,16 +205,6 @@ void linkedList_searchByName(string name)
 	}
 }
 
-void linkedList_deleteByName(string name)
-{
-	
-}
-
-void linkedList_deleteByCoordinate(double x, double y)
-{
-	
-}
-
 void linkedList_searchByCoordinate(double x, double y)
 {
 	node *temp = root;
@@ -224,7 +226,23 @@ void linkedList_searchByCoordinate(double x, double y)
 	}
 }
 
-void linkedList_searchWithinDistance(string name, double x, double y)
+void linkedList_searchWithinDistance(string name, double distance)
 {
+	//node *temp = root;
+	//bool found = false;
 
+	//while (temp != NULL)
+	//{
+	//	if (temp->xCoord == x && temp->yCoord)
+	//	{
+	//		cout << "Name: " << temp->name << " X: " << temp->xCoord << ", Y: " << temp->yCoord << "\n";
+	//		found = true;
+	//	}
+	//	temp = temp->next;
+	//}
+
+	//if (found == false)
+	//{
+	//	cout << "No such record exists in the existing data set. \n";
+	//}
 }

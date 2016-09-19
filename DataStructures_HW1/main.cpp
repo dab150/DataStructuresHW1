@@ -142,6 +142,8 @@ void handleUserInput(char implement, int operate)
 
 	if (implement == 'B' || implement == 'b')	//implement using linked list
 	{
+		int result = -1;
+
 		switch (operate)
 		{
 		case 1:	//insert a record
@@ -178,7 +180,14 @@ void handleUserInput(char implement, int operate)
 		case 4:	//Delete a record by name
 			cout << "Enter name of the city to be deleted: ";
 			cin >> enteredName;
-			linkedList_deleteRecord(enteredName, 0, 0);
+			//delete the record
+			result = linkedList_deleteRecord(enteredName, 0, 0);
+			if (result == 0)
+				cout << "Record deleted successfully! \n";
+			else if (result == 1)
+				cout << "This entry doesn't exist! \n";
+			else if (result == 2)
+				cout << "Unknown error occured. You're guess is as good as mine... \n";
 			break;
 
 		case 5: //Delete a record by coordinate
@@ -186,7 +195,14 @@ void handleUserInput(char implement, int operate)
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be deleted: ";
 			cin >> enteredY;
-			linkedList_deleteRecord("",enteredX, enteredY);
+			//delete the record
+			result = linkedList_deleteRecord("", enteredX, enteredY);
+			if (result == 0)
+				cout << "Record deleted successfully! \n";
+			else if (result == 1)
+				cout << "This entry doesn't exist! \n";
+			else if (result == 2)
+				cout << "Unknown error occured. You're guess is as good as mine... \n";
 			break;
 
 		case 6:	//Print within a certain distance of entry
