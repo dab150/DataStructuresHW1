@@ -81,7 +81,7 @@ void handleUserInput(char implement, char operate)
 		{
 		case '1':	//insert a record
 			cout << "Enter name of the city: ";
-			cin >> enteredName;
+			getline(cin, enteredName);
 			cout << "Enter x coordinate of the city: ";
 			cin >> enteredX;
 			cout << "Enter y coordinate of the city: ";
@@ -153,7 +153,7 @@ void handleUserInput(char implement, char operate)
 		{
 		case '1':	//insert a record
 			cout << "Enter name of the city: ";
-			cin >> enteredName;
+			getline(cin, enteredName);
 			cout << "Enter x coordinate of the city: ";
 			cin >> enteredX;
 			cout << "Enter y coordinate of the city: ";
