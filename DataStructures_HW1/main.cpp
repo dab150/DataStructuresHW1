@@ -14,7 +14,7 @@ using namespace std;
 
 //function prototypes
 void printMenu();
-void handleUserInput(char, int);
+void handleUserInput(char, char);
 void showContinueScreen();
 
 void main()
@@ -24,11 +24,10 @@ void main()
 
 void printMenu() {
 	char implementation;
-	int operation;
+	char operation;
 
-	cout << "\n";
-	cout << "*********************************************************";
 	cout << " \n \n \n";
+	cout << "************************************************************************** \n \n";
 	cout << "Implementation Options: \n";
 	cout << "	A.Use an array-based list implementation \n";
 	cout << "	B.Use a linked-list implementation \n \n";
@@ -43,23 +42,23 @@ void printMenu() {
 	cout << "	8. Exit \n \n";
 
 	cout << "Enter your implementation option: ";
-	cin >> implementation;
+	cin.getline(&implementation, 1000);
 	while (implementation != 'A' && implementation != 'a'
 		&& implementation != 'B' && implementation != 'b')
 	{
-		cout << "Please enter either 'A' or 'B' for your implementation option \n";
-		cout << "Enter your implementation option: ";
-		cin >> implementation;
+		cout << "\nError:\nPlease enter either 'A' or 'B' for your implementation option \n";
+		cout << "\nEnter your implementation option: ";
+		cin.getline(&implementation, 1000);
 	}	
 
 	cout << "Enter your operation option: ";
-	cin >> operation;
-	while (operation != 1 && operation != 2 && operation != 3 && operation != 4
-		&& operation != 5 && operation != 6 && operation != 7 && operation != 8 && operation)
+	cin.getline(&operation, 1000);
+	while (operation != '1' && operation != '2' && operation != '3' && operation != '4'
+		&& operation != '5' && operation != '6' && operation != '7' && operation != '8')
 	{
-		cout << "Please choose 1 through 8 for your operation option \n";
-		cout << "Enter your operation option: ";
-		cin >> operation;
+		cout << "\nError:\nPlease choose 1 through 8 for your operation option \n";
+		cout << "\nEnter your operation option: ";
+		cin.getline(&operation, 1000);
 	}
 	cout << "\n";
 
@@ -67,7 +66,7 @@ void printMenu() {
 	handleUserInput(implementation, operation);
 }
 
-void handleUserInput(char implement, int operate)
+void handleUserInput(char implement, char operate)
 {
 	//variables
 	string enteredName;
@@ -80,60 +79,65 @@ void handleUserInput(char implement, int operate)
 	{
 		switch (operate)
 		{
-		case 1:	//insert a record
+		case '1':	//insert a record
 			cout << "Enter name of the city: ";
 			cin >> enteredName;
 			cout << "Enter x coordinate of the city: ";
 			cin >> enteredX;
 			cout << "Enter y coordinate of the city: ";
 			cin >> enteredY;
+			cin.ignore();
 
 			returnValue = array_insertRecord(enteredName, enteredX, enteredY);
 			if (returnValue == 0)
-				cout << "Record inserted successfully! \n";
+				cout << "\nRecord inserted successfully! \n";
 			else if (returnValue == 1)
-				cout << "This entry already exists \n";
+				cout << "\nThis entry already exists \n";
 			else if (returnValue == 2)
-				cout << "Unknown error occured. You're guess is as good as mine... \n";
+				cout << "\nUnknown error occured. You're guess is as good as mine... \n";
 			break;
 
-		case 2: //Search for a record by name
+		case '2': //Search for a record by name
 			cout << "Enter name of the city to be searched: ";
 			cin >> enteredName;
 			array_searchByName(enteredName);
 			break;
 
-		case 3:	//Search for a record by coordinate
+		case '3':	//Search for a record by coordinate
 			cout << "Enter X Coordinate of the city to be searched: ";
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be searched: ";
 			cin >> enteredY;
+			cin.ignore();
 			array_searchByCoordinate(enteredX, enteredY);
 			break;
 
-		case 4:	//Delete a record by name
+		case '4':	//Delete a record by name
 			cout << "Enter name of the city to be deleted: ";
 			cin >> enteredName;
+			cin.ignore();
 			array_deleteByName(enteredName);
 			break;
 
-		case 5: //Delete a record by coordinate
+		case '5': //Delete a record by coordinate
 			cout << "Enter X Coordinate of the city to be deleted: ";
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be deleted: ";
 			cin >> enteredY;
+			cin.ignore();
 			array_deleteByCoordinate(enteredX, enteredY);
 			break;
 
-		case 6:	//Print within a certain distance of entry
+		case '6':	//Print within a certain distance of entry
 			cout << "Enter name of city you would like to search around: ";
 			cin >> enteredName;
 			cout << "How far would you like to search?: ";
 			cin >> enteredSearchDistance;
+			cin.ignore();
 			array_searchWithinDistance(enteredName, enteredSearchDistance);
 			break;
 
-		case 7: //print ALL records
+		case '7': //print ALL records
 			array_printEntries();
 
 		default:
@@ -147,74 +151,80 @@ void handleUserInput(char implement, int operate)
 
 		switch (operate)
 		{
-		case 1:	//insert a record
+		case '1':	//insert a record
 			cout << "Enter name of the city: ";
 			cin >> enteredName;
 			cout << "Enter x coordinate of the city: ";
 			cin >> enteredX;
 			cout << "Enter y coordinate of the city: ";
 			cin >> enteredY;
+			cin.ignore();
 
 			returnValue = linkedList_insertRecord(enteredName, enteredX, enteredY);
 			if (returnValue == 0)
-				cout << "Record inserted successfully! \n";
+				cout << "\nRecord inserted successfully! \n";
 			else if (returnValue == 1)
-				cout << "This entry already exists \n";
+				cout << "\nThis entry already exists \n";
 			else if (returnValue == 2)
-				cout << "Unknown error occured. You're guess is as good as mine... \n";
+				cout << "\nUnknown error occured. You're guess is as good as mine... \n";
 			break;
 
-		case 2: //Search for a record by name
+		case '2': //Search for a record by name
 			cout << "Enter name of the city to be searched: ";
 			cin >> enteredName;
+			cin.ignore();
 			linkedList_searchByName(enteredName);
 			break;
 
-		case 3:	//Search for a record by coordinate
+		case '3':	//Search for a record by coordinate
 			cout << "Enter X Coordinate of the city to be searched: ";
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be searched: ";
 			cin >> enteredY;
+			cin.ignore();
 			linkedList_searchByCoordinate(enteredX, enteredY);
 			break;
 
-		case 4:	//Delete a record by name
+		case '4':	//Delete a record by name
 			cout << "Enter name of the city to be deleted: ";
 			cin >> enteredName;
+			cin.ignore();
 			//delete the record
 			result = linkedList_deleteRecord(enteredName, 0, 0);
 			if (result == 0)
-				cout << "Record deleted successfully! \n";
+				cout << "\nRecord deleted successfully! \n";
 			else if (result == 1)
-				cout << "This entry doesn't exist! \n";
+				cout << "\nThis entry doesn't exist! \n";
 			else if (result == 2)
-				cout << "Unknown error occured. You're guess is as good as mine... \n";
+				cout << "\nUnknown error occured. You're guess is as good as mine... \n";
 			break;
 
-		case 5: //Delete a record by coordinate
+		case '5': //Delete a record by coordinate
 			cout << "Enter X Coordinate of the city to be deleted: ";
 			cin >> enteredX;
 			cout << "Enter Y Coordinate of the city to be deleted: ";
 			cin >> enteredY;
+			cin.ignore();
 			//delete the record
 			result = linkedList_deleteRecord("", enteredX, enteredY);
 			if (result == 0)
-				cout << "Record deleted successfully! \n";
+				cout << "\nRecord deleted successfully! \n";
 			else if (result == 1)
-				cout << "This entry doesn't exist! \n";
+				cout << "\nThis entry doesn't exist! \n";
 			else if (result == 2)
-				cout << "Unknown error occured. You're guess is as good as mine... \n";
+				cout << "\nUnknown error occured. You're guess is as good as mine... \n";
 			break;
 
-		case 6:	//Print within a certain distance of entry
+		case '6':	//Print within a certain distance of entry
 			cout << "Enter name of city you would like to search around: ";
 			cin >> enteredName;
 			cout << "How far would you like to search?: ";
 			cin >> enteredSearchDistance;
+			cin.ignore();
 			linkedList_searchWithinDistance(enteredName, enteredSearchDistance);
 			break;
 
-		case 7: //print ALL records
+		case '7': //print ALL records
 			linkedList_printEntries();
 
 		default:
@@ -231,7 +241,7 @@ void showContinueScreen()
 	cout << "\n";
 	cout << "Would you like to continue with another operation? \n";
 	cout << "Enter 'Y' to continue or 'N' to exit the program. \n";
-	cin >> input;
+	cin.getline(&input, 1000);
 	if (input == 'Y' || input == 'y')
 	{
 		printMenu();

@@ -43,7 +43,7 @@ void array_printEntries()
 			double x = database[i].xCoord;
 			double y = database[i].yCoord;
 
-			cout << "Name: " << name << ", X Coordinate: " << x << ", Y Coordinate: " << y << "\n";
+			cout << "Name: " << name << " X Coordinate: " << x << ", Y Coordinate: " << y << "\n";
 		}
 	}
 }
@@ -192,13 +192,14 @@ void array_deleteByName(string name)
 			//delete the record
 			result = array_deleteRecord(database[i].name, 0, 0);
 			if (result == 0)
-				cout << "Record deleted successfully! \n";
+				cout << "\nRecord deleted successfully! \n";
 			else if (result == 1)
-				cout << "This entry doesn't exist! \n";
+				cout << "\nThis entry doesn't exist! \n";
 			else if (result == 2)
-				cout << "Unknown error occured. You're guess is as good as mine... \n";
+				cout << "\nUnknown error occured. You're guess is as good as mine... \n";
 		}
 	}
+
 }
 
 void array_deleteByCoordinate(double x, double y)
@@ -212,15 +213,11 @@ void array_deleteByCoordinate(double x, double y)
 			//delete the record
 			result = array_deleteRecord("", database[i].xCoord, database[i].yCoord);
 			if (result == 0)
-				cout << "Record deleted successfully! \n";
+				cout << "\nRecord deleted successfully! \n";
 			else if (result == 1)
-				cout << "This entry doesn't exist! \n";
+				cout << "\nThis entry doesn't exist! \n";
 			else if (result == 2)
-				cout << "Unknown error occured. You're guess is as good as mine... \n";
-		}
-		else
-		{
-			cout << "This entry doesn't exist! \n";
+				cout << "\nUnknown error occured. You're guess is as good as mine... \n";
 		}
 	}
 }

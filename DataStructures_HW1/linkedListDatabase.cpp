@@ -8,7 +8,6 @@ Functions to manipulate a linked list based database
 #include <stdio.h>
 #include <iostream>
 #include <string>
-#include <math.h>
 #include "linkedListDatabase.h"
 #include "common.h"
 
