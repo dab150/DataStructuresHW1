@@ -14,6 +14,7 @@ Functions to manipulate an array based database
 using namespace std;
 
 int numberOfArrayEntries;
+bool displayExecutionTime = true;
 
 //entry structure
 struct entry {
@@ -30,6 +31,8 @@ entry *database;
 
 void array_printEntries()
 {
+	auto startTime = chrono::high_resolution_clock::now();
+	
 	if (numberOfArrayEntries == 0)
 	{
 		cout << "No entries to display! \n";
@@ -46,9 +49,17 @@ void array_printEntries()
 			cout << "Name: " << name << " X Coordinate: " << x << ", Y Coordinate: " << y << "\n";
 		}
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if (displayExecutionTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }
 
-int array_insertRecord(string name, double x, double y) {
+int array_insertRecord(string name, double x, double y) 
+{
+	auto startTime = chrono::high_resolution_clock::now();
+
 	try
 	{
 		numberOfArrayEntries += 1;
@@ -60,6 +71,10 @@ int array_insertRecord(string name, double x, double y) {
 			//in this case we make database the same as initialDatabase
 			database = new entry[numberOfArrayEntries];
 			database[0] = { name, x, y };
+			auto endTime = chrono::high_resolution_clock::now();
+			chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+			if (displayExecutionTime)
+				cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 			return 0;
 		}
 		else						//otherwise we need to create a new array AND copy the old array contents over, then add new entry
@@ -90,18 +105,27 @@ int array_insertRecord(string name, double x, double y) {
 			{
 				initialDatabase[i] = database[i];
 			}
+			auto endTime = chrono::high_resolution_clock::now();
+			chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+			if (displayExecutionTime)
+				cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 			return 0;
 		}
 	}
 	catch (exception& e)
 	{
+		auto endTime = chrono::high_resolution_clock::now();
+		chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+		if (displayExecutionTime)
+			cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 		return 2;
 	}
-
 }
 
 int array_deleteRecord(string name, double x, double y)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	bool found = false;
 	int indexToDelete = -1;
 	try
@@ -118,6 +142,10 @@ int array_deleteRecord(string name, double x, double y)
 
 		if (!found)
 		{
+			auto endTime = chrono::high_resolution_clock::now();
+			chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+			if (displayExecutionTime)
+				cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 			return 1; //not found
 		}
 
@@ -154,18 +182,26 @@ int array_deleteRecord(string name, double x, double y)
 		{
 			database[i] = initialDatabase[i];
 		}
+		auto endTime = chrono::high_resolution_clock::now();
+		chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+		if (displayExecutionTime)
+			cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 		return 0;
 	}
 	catch (exception& e)
 	{
+		auto endTime = chrono::high_resolution_clock::now();
+		chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+		if (displayExecutionTime)
+			cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 		return 2;
 	}
-
-
 }
 
 void array_searchByName(string name)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	bool found = false;
 	for (int i = 0; i < numberOfArrayEntries; i++)
 	{
@@ -179,10 +215,17 @@ void array_searchByName(string name)
 	{
 		cout << "No such record exists in the existing data set. \n";
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if (displayExecutionTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }
 
 void array_deleteByName(string name)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	int result = -1;
 
 	for (int i = 0; i < numberOfArrayEntries; i++)
@@ -200,10 +243,16 @@ void array_deleteByName(string name)
 		}
 	}
 
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if (displayExecutionTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }
 
 void array_deleteByCoordinate(double x, double y)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	int result = -1;
 
 	for (int i = 0; i < numberOfArrayEntries; i++)
@@ -220,10 +269,17 @@ void array_deleteByCoordinate(double x, double y)
 				cout << "\nUnknown error occured. You're guess is as good as mine... \n";
 		}
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if (displayExecutionTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }
 
 void array_searchByCoordinate(double x, double y)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	bool found = false;
 	for (int i = 0; i < numberOfArrayEntries; i++)
 	{
@@ -237,10 +293,17 @@ void array_searchByCoordinate(double x, double y)
 			cout << "No such record exists in the existing data set. \n";
 		}
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if (displayExecutionTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }
 
 void array_searchWithinDistance(string name, double requestedDistance)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	bool found = false;
 	double centerXRad = 0;
 	double centerYRad = 0;
@@ -287,4 +350,9 @@ void array_searchWithinDistance(string name, double requestedDistance)
 			cout << "No records found  \n";
 		}
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if (displayExecutionTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }

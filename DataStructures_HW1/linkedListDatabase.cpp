@@ -14,53 +14,7 @@ Functions to manipulate a linked list based database
 using namespace std;
 
 int numberOfLLEntries;
-/*/
-class LinkedList {
-	// Struct inside the class LinkedList
-	// This is one node which is not needed by the caller. It is just
-	// for internal work.
-	struct Node {
-		string name;
-		double xCoord;
-		double yCoord;
-		Node *next;
-	};
-
-public:
-	// constructor
-	LinkedList() {
-		head = NULL; // set head to NULL
-	}
-
-	// This prepends a new value at the beginning of the list
-	void addValue(string name, double x, double y) {
-		// create new Node
-		Node *n = new Node();   
-		// set value
-		n->name = name;
-		n->xCoord = x;
-		n->yCoord = y;
-
-		n->next = head;         // make the node point to the next node.
-								//  If the list is empty, this is NULL, so the end of the list --> OK
-		head = n;               // last but not least, make the head point at the new node.
-	}
-
-	// returns the first element in the list and deletes the Node.
-	// caution, no error-checking here!
-	int popValue() {
-		Node *n = head;
-		int ret = n->x;
-
-		head = head->next;
-		delete n;
-		return ret;
-	}
-
-	// private member
-private:
-	Node *head; // this is the private member variable. It is just a pointer to the first Node
-};*/
+extern bool displayExecTime = true;
 
 //node structure
 struct node {
@@ -77,6 +31,9 @@ node *head;
 
 void linkedList_printEntries()
 {
+	//start timer
+	auto startTime = chrono::high_resolution_clock::now();
+
 	temp = root;
 	if (temp != NULL) //make sure we dont have an empty list first
 	{
@@ -94,9 +51,16 @@ void linkedList_printEntries()
 	{
 		cout << "No entries to display! \n";
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if(displayExecTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }
 
 int linkedList_insertRecord(string name, double x, double y) {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	try
 	{
 		numberOfLLEntries += 1;
@@ -112,6 +76,10 @@ int linkedList_insertRecord(string name, double x, double y) {
 			root->xCoord = x;
 			root->yCoord = y;
 
+			auto endTime = chrono::high_resolution_clock::now();
+			chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+			if (displayExecTime)
+				cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 			return 0;
 		}
 		if (numberOfLLEntries > 1)
@@ -135,19 +103,28 @@ int linkedList_insertRecord(string name, double x, double y) {
 				root->next = n;
 			}
 
+			auto endTime = chrono::high_resolution_clock::now();
+			chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+			if (displayExecTime)
+				cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 			return 0;
 		}
 
 	}
 	catch (exception& e)
 	{
+		auto endTime = chrono::high_resolution_clock::now();
+		chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+		if (displayExecTime)
+			cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 		return 2;
 	}
-
 }
 
 int linkedList_deleteRecord(string name, double x, double y)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	try
 	{
 		node *temp = root;
@@ -167,6 +144,12 @@ int linkedList_deleteRecord(string name, double x, double y)
 					root = next;	//if we are deleting the first node, set next as root
 				else
 					root = NULL;	//we are deleting the only node so root = NULL
+
+				auto endTime = chrono::high_resolution_clock::now();
+				chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+				if (displayExecTime)
+					cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
+
 				return 0;
 			}
 			previous = temp;
@@ -174,18 +157,28 @@ int linkedList_deleteRecord(string name, double x, double y)
 			next = temp->next;
 		}
 
+		auto endTime = chrono::high_resolution_clock::now();
+		chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+		if (displayExecTime)
+			cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
+
 		return 1;
 	}
 	catch (exception& e)
 	{
+		auto endTime = chrono::high_resolution_clock::now();
+		chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+		if (displayExecTime)
+			cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
+
 		return 2;
 	}
-
-
 }
 
 void linkedList_searchByName(string name)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	node *temp = root;
 	bool found = false;
 
@@ -203,10 +196,17 @@ void linkedList_searchByName(string name)
 	{
 		cout << "No such record exists in the existing data set. \n";
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if(displayExecTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }
 
 void linkedList_searchByCoordinate(double x, double y)
 {
+	auto startTime = chrono::high_resolution_clock::now();
+
 	node *temp = root;
 	bool found = false;
 
@@ -224,12 +224,19 @@ void linkedList_searchByCoordinate(double x, double y)
 	{
 		cout << "No such record exists in the existing data set. \n";
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if (displayExecTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }
 
 void linkedList_searchWithinDistance(string name, double requestedDistance)
 {
 	//latitude is Y
 	//longitude is X
+
+	auto startTime = chrono::high_resolution_clock::now();
 
 	node *temp = root;
 	node *center;
@@ -281,4 +288,9 @@ void linkedList_searchWithinDistance(string name, double requestedDistance)
 	{
 		cout << "No records found  \n";
 	}
+
+	auto endTime = chrono::high_resolution_clock::now();
+	chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double>>(endTime - startTime);
+	if (displayExecTime)
+		cout << "Execution Time: " << time_span.count() * 1000 << " milliseconds";
 }

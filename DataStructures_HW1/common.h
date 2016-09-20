@@ -12,6 +12,8 @@ Contains variables needed throughout the various files in this program
 #include <string>
 #include <math.h>
 #include <iomanip>
+#include <ctime>
+#include <chrono>
 
 using namespace std;
 
