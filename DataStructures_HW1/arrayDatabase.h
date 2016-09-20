@@ -17,4 +17,4 @@ void array_searchByName(string name);
 void array_deleteByName(string name);
 void array_deleteByCoordinate(double x, double y);
 void array_searchByCoordinate(double x, double y);
-void array_searchWithinDistance(string name, double x, double y);
+void array_searchWithinDistance(string name, double requestedDistance);

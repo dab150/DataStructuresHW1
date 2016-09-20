@@ -242,7 +242,52 @@ void array_searchByCoordinate(double x, double y)
 	}
 }
 
-void array_searchWithinDistance(string name, double x, double y)
+void array_searchWithinDistance(string name, double requestedDistance)
 {
+	bool found = false;
+	double centerXRad = 0;
+	double centerYRad = 0;
+	double compareXRad = 0;
+	double compareYRad = 0;
 
+
+	if (numberOfArrayEntries == 0)
+	{
+		cout << "No entries to display! \n";
+	}
+	else
+	{
+		//start by finding coordinates of requested center location
+		for (int i = 0; i < numberOfArrayEntries; i++)
+		{
+			if (database[i].name == name)
+			{
+				//convert coordinates to radians
+				centerXRad = database[i].xCoord * (3.1415926535 / 180);
+				centerYRad = database[i].yCoord * (3.1415926535 / 180);
+			}
+		}
+
+		//now determine if any of the other database entries are within 'distance' of center
+		for (int i = 0; i < numberOfArrayEntries; i++)
+		{
+			compareXRad = database[i].xCoord * (3.1415926535 / 180);
+			compareYRad = database[i].yCoord * (3.1415926535 / 180);
+			//perform distance calculation
+			double e = acos(sin(centerYRad)*sin(compareYRad) + cos(centerYRad)*cos(compareYRad)*cos(compareXRad - centerXRad));
+			//multiply by radius of equator
+			double distance = e * 3963.191;
+
+			if (distance < requestedDistance && database[i].name != name)
+			{
+				cout << "Name: " << database[i].name << " X Coord: " << database[i].xCoord << ", Y Coord: " << database[i].yCoord << "\n";
+				found = true;
+			}
+		}
+
+		if (found != true)
+		{
+			cout << "No records found  \n";
+		}
+	}
 }

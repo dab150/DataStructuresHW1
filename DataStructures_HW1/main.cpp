@@ -130,6 +130,7 @@ void handleUserInput(char implement, int operate)
 			cin >> enteredName;
 			cout << "How far would you like to search?: ";
 			cin >> enteredSearchDistance;
+			array_searchWithinDistance(enteredName, enteredSearchDistance);
 			break;
 
 		case 7: //print ALL records
@@ -210,6 +211,7 @@ void handleUserInput(char implement, int operate)
 			cin >> enteredName;
 			cout << "How far would you like to search?: ";
 			cin >> enteredSearchDistance;
+			linkedList_searchWithinDistance(enteredName, enteredSearchDistance);
 			break;
 
 		case 7: //print ALL records

@@ -8,6 +8,7 @@ Functions to manipulate a linked list based database
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <math.h>
 #include "linkedListDatabase.h"
 #include "common.h"
 
@@ -226,23 +227,59 @@ void linkedList_searchByCoordinate(double x, double y)
 	}
 }
 
-void linkedList_searchWithinDistance(string name, double distance)
+void linkedList_searchWithinDistance(string name, double requestedDistance)
 {
-	//node *temp = root;
-	//bool found = false;
+	//latitude is Y
+	//longitude is X
 
-	//while (temp != NULL)
-	//{
-	//	if (temp->xCoord == x && temp->yCoord)
-	//	{
-	//		cout << "Name: " << temp->name << " X: " << temp->xCoord << ", Y: " << temp->yCoord << "\n";
-	//		found = true;
-	//	}
-	//	temp = temp->next;
-	//}
+	node *temp = root;
+	node *center;
+	bool found = false;
+	double centerXRad = 0;
+	double centerYRad = 0;
+	double compareXRad = 0;
+	double compareYRad = 0;
 
-	//if (found == false)
-	//{
-	//	cout << "No such record exists in the existing data set. \n";
-	//}
+	//first find coordinates of our 'center' node
+	while (temp != NULL)
+	{
+		if (temp->name == name)
+		{
+			center = temp;
+			//convert center points coordinates to radians
+			centerXRad = center->xCoord * (3.1415926535 / 180);
+			centerYRad = center->yCoord * (3.1415926535 / 180);
+		}
+		temp = temp->next;
+	}
+
+	//now that we found center, set temp back to root so we can use it to navigate our list again
+	temp = root;
+
+	//now search through each item in the list and see if its coordinates are within 'distance' of the center
+	while (temp != NULL)
+	{
+		//convert center points coordinates to radians
+		compareXRad = temp->xCoord * (3.1415926535/180.0);
+		compareYRad = temp->yCoord * (3.1415926535/180.0);
+
+		//perform distance calculation
+		double e = acos(sin(centerYRad)*sin(compareYRad) + cos(centerYRad)*cos(compareYRad)*cos(compareXRad - centerXRad));
+		//multiply by radius of equator
+		double distance = e * 3963.191;
+
+		if (distance <= requestedDistance && temp->name != name)
+		{
+			cout << "Name: " << temp->name << " X Coord: " << temp->xCoord << ", Y Coord: " << temp->yCoord << "\n";
+			found = true;
+		}
+
+		//check next node
+		temp = temp->next;
+	}
+
+	if (found == false)
+	{
+		cout << "No records found  \n";
+	}
 }
