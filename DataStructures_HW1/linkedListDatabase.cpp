@@ -127,6 +127,7 @@ int linkedList_deleteRecord(string name, double x, double y)
 
 	try
 	{
+		numberOfLLEntries -= 1;
 		node *temp = root;
 		node *previous = NULL;
 		node *next = root->next;

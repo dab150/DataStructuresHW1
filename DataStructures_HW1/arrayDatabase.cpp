@@ -241,6 +241,10 @@ void array_deleteByName(string name)
 			else if (result == 2)
 				cout << "\nUnknown error occured. You're guess is as good as mine... \n";
 		}
+		else
+		{
+			cout << "\nThis entry doesn't exist! \n";
+		}
 	}
 
 	auto endTime = chrono::high_resolution_clock::now();
@@ -323,16 +327,16 @@ void array_searchWithinDistance(string name, double requestedDistance)
 			if (database[i].name == name)
 			{
 				//convert coordinates to radians
-				centerXRad = database[i].xCoord * (3.1415926535 / 180);
-				centerYRad = database[i].yCoord * (3.1415926535 / 180);
+				centerXRad = database[i].xCoord * (3.1415926535 / 180.0);
+				centerYRad = database[i].yCoord * (3.1415926535 / 180.0);
 			}
 		}
 
 		//now determine if any of the other database entries are within 'distance' of center
 		for (int i = 0; i < numberOfArrayEntries; i++)
 		{
-			compareXRad = database[i].xCoord * (3.1415926535 / 180);
-			compareYRad = database[i].yCoord * (3.1415926535 / 180);
+			compareXRad = database[i].xCoord * (3.1415926535 / 180.0);
+			compareYRad = database[i].yCoord * (3.1415926535 / 180.0);
 			//perform distance calculation
 			double e = acos(sin(centerYRad)*sin(compareYRad) + cos(centerYRad)*cos(compareYRad)*cos(compareXRad - centerXRad));
 			//multiply by radius of equator
